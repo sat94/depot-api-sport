@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-5**v&e)of^-z+#x_ijqno1jhp53kpgdzl_v*f9wl%_vwk6-28=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["sat.pythonanywhere.com/"]
 
 DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
 DJANGORESIZED_DEFAULT_KEEP_META = True
