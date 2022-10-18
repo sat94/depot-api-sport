@@ -1,0 +1,86 @@
+{% extends 'dashbord.html' %}
+{% load custom_tags %}
+
+{% block title %}dashboard_partenaire{% endblock title %}
+
+{% block content %}
+<div class="fixe" id="switch">
+    <div class="container block">
+    <h3 class="text-center"><span id="h3">Les</span> Partenaires</h3>
+    <div class="row">            
+        <form method="post" class="d-flex recherche">            
+            <input class=" me-2" name="cherche" placeholder=" Recherche partenaire">
+            <button class="btn btnr btn-outline-dark" hx-swap="outerHTML" hx-target="#dash"  hx-post="{% url "cherche-partenaire" %}" type="submit">Recherche</button>
+        </form> 
+    </div>
+        <div class="row table">
+            <div class="col-2"></div>
+            <div class="col-4"><h5 class="d-flex align-items-center h-100" id="color">Description</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Responsable</p></div>
+            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Téléphone</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Actif</p></div>           
+        </div>
+        {% for partenaires in partenaires %}
+            <div class="row">
+                <div class="col-md-1">  
+                  <img src="{{ partenaires.photo.url }}"  class="img d-flex align-items-center h-99"  alt="{{ partenaires.photo.url }}">                  
+                </div>
+                <div class="col-md-1">         
+                  <h5 class="d-flex justify-content-center align-items-center h-100 ville"><span id="color"> {{ partenaires.ville }}</span></h5>
+                </div>
+                <div class="col-md-4">     
+                  <p class="d-flex justify-content-center align-items-center h-100 descrip">{{ partenaires.description}}</p>
+                </div>
+                <div class="col-4 col-md-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ partenaires.resp.nom }}</p>
+                </div>
+                <div class="col-4 col-md-2">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{  partenaires.numberPhone|phoneNumber}}</p>
+                </div>
+                <div class="col-4 col-md-1 d-flex justify-content-center align-items-center ">   
+                <form method="POST">
+                    {% csrf_token %}  
+                    {% if partenaires.actif %}
+                        <p hx-swap="outerHTML" hx-target="#dash" hx-post="{% url 'valide_actif_partenaire' pk=partenaires.id %}"><input checked type="checkbox" name="actif"></p>
+                    {% else %}
+                        <p hx-swap="outerHTML" hx-target="#dash" hx-post="{% url 'valide_actif_partenaire' pk=partenaires.id %}"><input type="checkbox" name="actif"></p>
+                    {% endif %}  
+                </form>
+                </div>
+                <div class="col-2 col-md-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-get="{% url 'modif-partenaire' partenaires.pk %}"  hx-push-url="true" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                </div>
+                <div class="col-3 col-md-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a  hx-target="#dash" hx-delete="{% url 'delete-partenaire' partenaires.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
+                </div>
+            </div>     
+        {% endfor %}        
+        <div class="bas">
+           <p> <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'rajoutpartenaire' %}" class="ajouter btn btnr btn-dark">Ajoutez un Partenaire</a><a class="btn btnr btn-dark" hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard_partenaire' %}"><i class="fas fa-undo"></i></a></p>
+           <nav id="boucle">
+            <ul class="pagination justify-content-center">        
+                {% if partenaires.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_partenaire' %}?page={{ partenaires.previous_page_number }}">
+                           <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if partenaires.paginator.num_pages > 1 %}
+                <li class='page-item'><p class="page-link" >Page {{ partenaires.number }} sur {{ partenaires.paginator.num_pages }}</p></li>
+                {% endif %}
+                {% if partenaires.has_next %}
+                <li class="page-item">
+                    <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_partenaire' %}?page={{ partenaires.next_page_number }}">
+                       <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+{% block javascript %}{% endblock javascript %}

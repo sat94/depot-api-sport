@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load custom_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'structure.css' %}"> 
+{% endblock head %}
+
+{% block title %}Option-Structure{% endblock title %}
+
+{% block content %}
+<div class="top">   
+    <div class="row">
+        <div class="col-8 col-lg-8 col-xxl-4 order-xl-2">   
+            <p class="font-monospace"><span class="suffit"> Nom : </span>{{structure}}</P>
+            <p class="font-monospace"><span class="suffit"> Responsable : </span>{% if structure.user.nom %} <a hx-swap="outerHTML" hx-target="#page"  hx-push-url="true"  hx-get="{% url 'responsable' structure.pk %}" class="nom">{{structure.user.nom}}</a></p>
+                {% else %}
+                inconnu</p>
+                {% endif %}
+            <p class="font-monospace"><span class="suffit"> Adresse : </span> {{structure.adresse}}</p>
+            <p class="font-monospace"><span class="suffit"> Partenaire : </span> {{structure.part}}</p>
+            <p class="font-monospace"><span class="suffit"> Membres : </span> {{structure.membre}}</p>            
+            
+           
+            <P><span class="suffit"> Haman : </span>{% if structure.haman %} <img src={% static 'vert.png' %}  style="width:20px;margin-left:1rem;"></p>{% else %}<img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>{% endif %}  
+            <p><span class="suffit"> Sauna : </span>{% if structure.sauna %} <img src={% static 'vert.png' %}  style="width:20px;margin-left:1rem;"></p>{% else %}<img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>{% endif %}  
+            <p><span class="suffit"> Piscine : </span>{% if structure.piscine %}<img src={% static 'vert.png' %}  style="width:20px;margin-left:1rem;"></p>{% else %}<img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>{% endif %}  
+            
+            <p class="font-monospace"><span class="suffit"> Numeros : </span>{{structure.numberPhone|phoneNumber}}</p>            
+            {% if user.is_admin %}
+            <form method ="POST">                
+                {% csrf_token %}    
+            <p hx-swap="outerHTML" hx-target="#page" hx-post="{% url 'valide_structure' pk=structure.id %}"><span class="suffit">Actif : </span>{{ form }}</p>
+        </form>
+        {% else %}     
+            {% if structure.actif %}
+            <p><span class="suffit">Actif : </span><img src={% static 'vert.png' %} style="width:10%;margin-left:1rem;" class="vertical"></p>
+            {% else %}                                      
+            <p><span class="suffit">Actif : </span><img src={% static 'false.png' %} style="width:8%;margin-left:1rem;" class="vertical"></p>
+            {% endif %}
+        {% endif %} 
+        </div>      
+        <div class="col-4 col-lg-4 col-xxl-4 order-xl-1">        
+                {% if structure.photo.url %} 
+                <p class="d-flex justify-content-center font-monospace me-6"><img src={{ structure.photo.url }} class="rounded-3 float"  alt={{ structure.photo.url }}></p>
+                {% else %}
+                <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+                {% endif %}            
+        </div>
+        <div class="col-12 col-xl-12 col-xxl-4 order-xl-3"> 
+            <h2 class><span class="suffit">Opti</span>ons du <span class="suffit">parte</span>naire</h2><br>       
+                {% for option in options %}               
+                    {% if option.id in listoptionpartenaire %} 
+                    <div class="row">
+                        <div class="col-2">    
+                            <p><img src={% static 'vert.png' %} style="width:20px;margin-left:1rem;"></P>
+                        </div>   
+                        <div class="col-2">         
+                            <p>{{ option.slug }}</p> 
+                        </div>   
+                    </div> 
+                    {% endif %}
+                {% endfor %}          
+
+            <br><h2><span class="suffit">Opt</span>ions <span class="suffit">de</span> la <span class="suffit">struc</span>ture </h2><br>  
+            {% if user.is_admin %}   
+            <form method ="POST">
+                {% csrf_token % %} 
+                 <p>{{ forms }}</p><br>
+                <button value="submit" class="btn btn-dark btn-lg"  role="button" id="button" type="submit">Accepter les modifications</button>
+                <button hx-swap="outerHTML"  hx-push-url="true" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></buttom>
+            </form>                           
+            {% else %}  
+                {% for option in options %}                
+                    {% if option.id not in listoptionpartenaire %}
+                        {% if option.id in listoptionstructure %}
+                        <div class="row">
+                            <div class="col-2">
+                               <p> <img src={% static 'vert.png' %}  style="width:40%;margin-left:1rem;">
+                            </div>
+                            <div class="col-2">
+                                {{ option.slug }}</p>
+                            </div>
+                        </div>
+                        {% else %}  
+                        <div class="row">
+                            <div class="col-2">                                    
+                              <p>  <img src={% static 'false.png' %}  style="width:40%;margin-left:1rem;">
+                            </div>
+                            <div class="col-2">
+                                {{ option.slug }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}  
+            {% endif %}           
+        </div> 
+    </div>  
+    <div class ="row">
+        <div class="col-12"> 
+    </div>    
+ </div>
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dash.css' %}">
+{% endblock head %}
+
+{% block title %}Mon partenaire{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="top"> 
+        <div class ="row">
+            <div class="col-8">        
+            <p><span class="suffit"> Nom :</span>
+                {{user.responsable.ville}}</P>
+            <p><span class="suffit"> Description:</span>                                         
+                {{user.responsable.description}}</P>                 
+            <p><span class="suffit"> Responsable : </span>         
+                <a hx-target="#page" hx-get="{% url 'profils' %}" class="nom">{{user.nom}}</a></P>
+            <p><span class="suffit"> Email :</span>
+                {{user.email}}</p>
+            <p><span class="suffit"> Téléphone :</span>   
+                {{user.responsable.numberPhone|phoneNumber}}</P>                                    
+                <button hx-target="#page" hx-push-url="true" hx-get="{% url 'modifpartenaire' user.responsable.pk %}" class="btn btn-dark btn-lg me-2" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier</buttom>
+                <button hx-target="#page" hx-push-url="true" hx-get="{% url 'user_option_partenaire' user.responsable.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Option</buttom>  
+            </div>            
+            <div class="col-4">                  
+            <img src={{ user.responsable.photo.url }} class="rounded-3 img-fluid float" alt={{user.partenaire.photo}}>      
+            </div>
+            </div>
+        </div> 
+    </div>
+
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

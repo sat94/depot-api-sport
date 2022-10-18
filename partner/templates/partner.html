@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% url 'structure' as artenaire %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'partner.css' %}">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" defer></script>
+{% block title %}partenaire{% endblock title %}
+{% endblock head %}
+
+
+{% block content %}
+  {% include "partiel\swap.html" %}
+{% endblock content %}
+
+{% block javascript %}
+<script type="module">
+  const swiper = new Swiper('.swiper', {
+            pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+        }, 
+      breakpoints: {
+        // when window width is >= 320px
+        0: {
+          init: true,
+          nested: true,
+          slidesPerView: 1,         
+          centeredSlides: true,
+          focusableElements: 'button',
+          cssMode:false,
+          spaceBetween: 10,
+          allowTouchMove:true,
+          loop:true,         
+          hiddenClass: 'swiper-pagination-hidden',
+          paginationDisabledClass:'swiper-pagination-disabled',
+        },
+        // when window width is >= 480px
+        750: {
+          init: true,
+          nested: true,
+          slidesPerView: 2,
+          centeredSlides: false,
+          focusableElements: 'button',
+          navigationDisabledClass: "swiper-button-prev",
+          cssMode:false,
+          centerInsufficientSlides:true,
+          spaceBetween: 5,
+          allowTouchMove:true,
+          loop:true,           
+        },
+        // when window width is >= 640px
+        1250: {
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+          }, 
+          init: true,
+          nested: true,
+          slidesPerView: 3,
+          centeredSlides: true, 
+          focusableElements: 'button',
+          spaceBetween: 10,
+          loop:true,
+          allowTouchMove:true,
+          noSwiping:true,             
+        },
+        1500: {
+          init: true,
+          nested: true,              
+          slidesPerView: 3,
+          focusableElements: 'button',
+          centeredSlides: true,
+          spaceBetween: 10,
+          loop:true,
+          allowTouchMove:false,       
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+          },      
+        2200: {
+          init: true,
+          nested: true,
+          slidesPerView: 4,
+          autoplay: true,
+          centerInsufficientSlides:true,
+          focusableElements: 'button',
+          spaceBetween: 40,
+          loop:true,
+          allowTouchMove:false,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+          },        
+        }
+      }  
+    });
+</script>
+{% endblock javascript %}

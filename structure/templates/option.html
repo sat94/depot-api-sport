@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'option.css' %}"> 
+{% endblock head %}
+
+{% block title %}responsable{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+    <div class="top"> 
+        <div class ="row">
+            <div class="col-8 col-lg-6">
+            <br>
+            <p><span class="suffit"> Nom : </span>{{structure.user.nom}}</P>
+            <p><span class="suffit"> Prénom: </span>{{structure.user.prenom}} </P>
+            <p><span class="suffit"> Email : </span>{{structure.user.email}} </P>
+            <p><span class="suffit"> Adresse: </span>{{structure.user.adresse}}</P>
+            <p><span class="suffit"> Ville: </span>{{structure.user.ville}}</P>
+            <p><span class="suffit"> Code Postal: </span>{{structure.user.CodePostal}}</P>       
+            <p>{% if structure.user.is_active %}<p><span class="suffit"> Actif : </span><img src={% static 'vert.png' %}  style="width:25px;margin-left:1rem;"></p>
+                {% else %}                                      
+                    <p><span class="suffit"> Actif : </span><img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>
+                {% endif %}
+            <br>
+            <button hx-swap="outerHTML"  hx-push-url="true" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</buttom>
+            </div>         
+            
+            <div class="col-2 col-lg-6">                
+                    {% if structure.user.photo.url %} 
+                      <p class="d-flex justify-content-center align-items-center"><img src={{ structure.user.photo.url }} class="rounded-3 float"  alt={{ structure.user.photo.url }}></p>
+                    {% else %}
+                       <p class="d-flex justify-content-center align-items-center"><img src={% static 'inconnu.jpg' %} class="rounded-3 float"  alt="inconnu.jpg"></P>
+                    {% endif %}                
+            </div>
+        </div> 
+    </div>
+</div>
+{% endblock content%}
+
+{% block javascript %}{% endblock javascript %}

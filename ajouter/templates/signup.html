@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'signup.css' %}"> 
+{% endblock head %}
+
+{% block title %}signup{% endblock title %}
+
+{% block content %}
+<div class="bloc">
+    <h1>Créer<spam style="color: white; font-style: italic;"> un compte</spam></h1>
+    <form method ="POST" enctype="multipart/form-data" hx-encoding="multipart/form-data">
+        <div class="form-group align form mb-3">
+                {% csrf_token %}   
+                {% for error, message in errors.items %}
+                <h5 style="color: red;">{{ message }}</h5>                
+                {% endfor %} 
+                                  
+                <label >Nom d'utilisateur :</label>
+                {% render_field form.username placeholder="Pseudo" hx-post="/check_username/" hx-trigger="keyup" hx-target="#username-error" %}
+                <div id="username-error"></div>
+                <Br>
+
+                <label>Votre email :</label>
+                {% render_field form.email placeholder="Votre@mail.com" hx-post="/check_email/" hx-trigger="keyup" hx-target="#email-error" %} 
+                <div id="email-error"></div><Br>
+
+                <label>Votre mots de passe :</label>
+                {% render_field form.password1 hx-post="/check_password/" hx-trigger="keyup" hx-target="#password-error" %}<Br> 
+
+                <label>Retapez votre mot de passe :</label>
+                {% render_field form.password2 hx-post="/check_password/" hx-trigger="keyup" hx-target="#password-error" %}
+                <div id="password-error"></div><Br> 
+
+                <label>Votre nom:</label>
+                {% render_field form.nom placeholder="Votre nom" %}<Br>
+
+                <label>Votre prénom:</label>
+                {% render_field form.prenom placeholder="Votre prénom" %}<Br>
+
+                <label>Votre adresse:</label>             
+                {% render_field form.adresse placeholder="Votre adresse" %}<Br>
+
+                <label>Code postal:</label>
+                {% render_field form.CodePostal placeholder="Code postal" %}<Br>
+
+                <label>Ville :</label> 
+                {% render_field form.ville placeholder="Votre ville" %}<Br>
+
+                <label>Photo :</label>    
+                {% render_field form.photo %}<Br> 
+
+                <label>Permissions :</label>
+                    <div class="select">    
+                        {% render_field  form.permission %}             
+                    </div> 
+                <p><button hx-swap="outerHTML"  hx-post="{% url 'add-personnel' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" id="buttomPlace" >Valider</button>
+                <a hx-swap="outerHTML" hx-target="#dash" push-hx-url="true"  hx-get="{% url 'dashboard_personnel' %}" class="btn btnr btn-dark">Retour</a></p>            
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block javascript %}{% endblock javascript %}

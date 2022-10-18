@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load custom_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'OptionPartenaire.css' %}"> 
+{% endblock head %}
+
+{% block title %}option partenaire{% endblock title %}
+
+{% block content %}
+
+<div class="top">
+    <div class="row">         
+        <div class="col-8 col-lg-8 col-xxl-4 order-xl-2">  
+            <p><span class="suffit">Nom :</span> {{ partenaires.ville }}</P>
+            <p><span class="suffit"> Responsable :</span>            
+            {% if  partenaires.resp.nom %} 
+            <a hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'responsables' partenaires.pk %}" class="nom">{{ partenaires.resp.nom }}</a></p></p>  
+            {% else %} 
+                inconnu</p>
+            {% endif %} 
+            <p><span class="suffit"> Description :</span></p>
+            <P class="col-6"> {{ partenaires.description }}</P>                     
+            <p><span class="suffit"> Numeros : </span> {{ partenaires.numberPhone|phoneNumber }}</P>
+                {% if user.is_admin %}
+                <form method ="POST">
+                    {% csrf_token %}  
+                    <p hx-swap="outerHTML" hx-target="#page" hx-post="{% url 'valide' pk=partenaires.id %}"><span class="suffit">Actif : </span> {{ forms }}</p>
+                </form>
+                {% else %}
+                {% if partenaires.actif %}
+                <p class="col-6"><span class="suffit">Actif :</span><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p class="col-6"><span class="suffit">Actif :</span> <img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+                {% endif %} 
+                <div class="row">              
+                <p class="col-6" ><span class="suffit">Ses structures:</span></p>{% for structure in structures %}<p class="col-6 justify-content-center align-items-center">{{ structure.nom }}</p>{% endfor %}
+                </div>    
+            </div>
+        <div class="col-4 col-lg-4 col-xxl-4 order-xl-1">
+            <div>
+            {% if partenaires.photo.url %} 
+              <p><img src={{ partenaires.photo.url }} class="rounded-3 float" alt={{ partenaires.photo.url }}></p>              
+              {% else %}
+              <p><img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float" alt="inconnu.jpg"></p>
+              {% endif %}              
+            </div>
+        </div>        
+        {% if user.is_admin %}
+        <div class="col-12 col-xl-12 col-xxl-4 order-xl-3">
+            <form method ="POST" action="">
+                {% csrf_token %}
+                <h2><span class="suffit">Les Opt</span>ions <span class="suffit">Glo</span>bals</h2>
+                <p>{{ form }}</p><br>                
+                <button hx-swap="outerHTML" hx-target="#page" hx-post="{% url 'optionbase' pk=partenaires.id %}" class="btn btn-dark btn-lg" role="button" id="button" type="submit">Accepter les modifications</button>
+                <button hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" aria-disabled="true" id="button"><img src="{% static "retour.png" %}" style="height:1rem"></button>    
+            </form>
+            </div>
+            {% else %}
+            <div class="col-6 col-md-2 order-xl-3 suffit">
+                {% for option in options %}
+                    {% if option.id in listoptionid %}
+                        <p> {{ option.slug }} <img src={% static 'vert.png' %} style="width:10%;margin-left:1rem;"></p>
+                    {% else %}  
+                        <p> {{ option.slug }} <img src={% static 'false.png' %} style="width:8%;margin-left:1rem;"></p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            </div> 
+     
+        </div>
+    </div>  
+</div>                       
+{% endblock %}
+
+{% block javascript %}{% endblock javascript %}

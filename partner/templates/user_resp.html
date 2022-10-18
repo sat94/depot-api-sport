@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'option.css' %}"> 
+{% endblock head %}
+
+{% block title %}responsable{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="top"> 
+        <div class ="row">
+            <div class="col-8 col-lg-6">
+            <br>
+            <p><span class="suffit"> Nom : </span>{{partenaires.resp.nom}}</P>
+            <p><span class="suffit"> Prénom: </span>{{partenaires.resp.prenom}} </P>
+            <p><span class="suffit"> Email : </span>{{partenaires.resp.email}} </P>
+            <p><span class="suffit"> Adresse: </span>{{partenaires.resp.adresse}}</P>
+            <p><span class="suffit"> Ville: </span>{{partenaires.resp.ville}}</P>
+            <p><span class="suffit"> Code Postal: </span>{{partenaires.resp.CodePostal}}</P>       
+            <p>{% if partenaires.resp.is_active %}
+                <p><span class="suffit"> Actif : </span><img src={% static 'vert.png' %}  style="width:25px;margin-left:1rem;"></p>
+                {% else %}                                      
+                    <p><span class="suffit"> Actif : </span><img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>
+                {% endif %}
+            <br>
+            <button hx-swap="outerHTML"  hx-push-url="true" hx-target="#page" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</buttom>
+            </div>         
+            
+            <div class="col-2 col-lg-6">               
+                    {% if partenaires.resp.photo.url %} 
+                      <p class="d-flex justify-content-center align-items-center h-100"><img src={{ partenaires.resp.photo.url }} class="rounded-3 float"  alt={{ partenaire.resp.photo.url }}></p>
+                    {% else %}
+                       <p class="d-flex justify-content-center align-items-center h-100"><img src={% static 'inconnu.jpg' %} class="rounded-3 float"  alt="inconnu.jpg"></P>
+                    {% endif %}                
+            </div>
+        </div> 
+    </div>
+</div>
+{% endblock content%}
+
+{% block javascript %}{% endblock javascript %}

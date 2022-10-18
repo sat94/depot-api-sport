@@ -1,0 +1,173 @@
+body{
+    color: beige;
+    background-color: #1d1b1e;
+    background-image: url(couverture.jpg) ; 
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;   
+}
+h1 {
+    font-size: 5rem;
+    filter: opacity(100%);  
+    font-weight: 200;
+    font-style: italic;
+    color: rgb(46, 244, 7);
+    text-transform: uppercase;
+    animation: flicker 1.5s infinite alternate;     
+    }
+h2{
+    padding-top: 50px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+    color: #00ff1A;
+    padding-bottom: 50px;
+}
+h3{
+    padding-top: 50px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;    
+    color: #00ff1A;
+    padding-bottom: 100px;
+}
+.btnr{
+    margin-top: 50px;
+    background-color: rgb(58, 58, 64);
+    color: white;   
+    margin-bottom: 60px;    
+}    
+.btnr:hover{
+    border: 1px solid ;
+    color: #00ff1A;
+    background-color: black;
+}
+p {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    font-size: 22px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;    
+}
+ul li{
+    color : rgb(237, 94, 101);
+    font-size: 14px;
+    list-style-type: none;   
+    padding-right: 30px;
+}
+label{
+    margin-bottom: 0.8rem;
+}
+.blocs{
+    text-align: center;
+    width: 680px;
+    height: auto;
+    background: black;
+    border: 1px solid rgb(87, 245, 3); 
+    margin-top: 160px; 
+    margin-left: 150px;               
+}
+.bloc{
+    text-align: center;
+    width: 580px;
+    height: auto;
+    background: black;
+    border: 1px solid rgb(87, 245, 3); 
+    margin-top: 260px; 
+    margin-left: 150px;               
+}
+@media screen and (max-width: 900px){ 
+    body{
+        color: beige;     
+        background-image: url(port.jpg) ; 
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;   
+    }
+    .blocs{
+        text-align: center;
+        width: 380px;
+        height: auto;
+        background: black;
+        border: 1px solid rgb(87, 245, 3); 
+        margin-top: 90px; 
+        margin-left: 5px;               
+    }
+}
+@media screen and (max-width: 800px){ 
+    body{
+        color: beige;
+        background-color: #1d1b1e;
+        background-image: url(port.jpg) ; 
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;   
+    }
+    .blocs{
+        text-align: center;
+        width: 380px;
+        height: auto;
+        background: black;
+        border: 1px solid rgb(87, 245, 3); 
+        margin-top: 80px; 
+        margin-left: 50px;               
+    }
+    .bloc{
+        text-align: center;
+        width: 380px;
+        height: auto;
+        background: black;
+        border: 1px solid rgb(87, 245, 3); 
+        margin-top: -80x; 
+        margin-left: 50px;               
+    }
+}
+@media screen and (max-width: 450px){ 
+    .blocs{
+        text-align: center;
+        width: 100%; 
+        height: 800px;      
+        background: black;
+        border: 1px solid rgb(87, 245, 3);
+        font-size: 12px; 
+        margin-top: 65px; 
+        margin-left: 0%;                             
+    }
+    .bloc{
+        text-align: center;
+        width: 100%;
+        height: 600px;
+        background: black;
+        border: 1px solid rgb(87, 245, 3);
+        font-size: 8px; 
+        margin-top: 65px; 
+        margin-left: 0%;                             
+    }
+    .text{     
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: lighter;
+        font-size: 12px;
+        position: relative;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;    
+    }
+    .petit{
+        font-size: 12px;
+        width: 100%;
+        font-weight: none;
+    }
+    label{
+        font-size: 12px;
+    }
+    ul li{
+        font-size: 12px;
+    }
+    h2{
+        font-size: 22px;
+    }
+    .btnr{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+}

@@ -1,0 +1,94 @@
+{% extends 'dashbord.html' %}
+{% load custom_tags %}
+
+{% block title %}dashboard_structure{% endblock title %}
+
+{% block content %}
+<div class="fixe" id="switch">
+    <div class="container block">
+    <h3 class="text-center"><span id="h3">Les</span> Structures</h3>
+        <div class="row">            
+            <form method="post" class="d-flex recherche">            
+                <input class=" me-2" name="cherche" placeholder=" Recherche structure">
+                <button class="btn btnr btn-outline-dark" hx-swap="outerHTML" hx-target="#dash"  hx-post="{% url "cherche-structure" %}" type="submit">Recherche</button>
+            </form> 
+        </div>
+        <div class="row table">
+            <div class="col-2"></div>
+            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Adresse</p></div>          
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Partenaire</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Responsable</p></div>
+            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Téléphone</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Actif</p></div> 
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Membre</p></div>          
+        </div>
+        {% for structures in structures %}
+            <div class="row">
+                <div class="col-md-1">  
+                  <img src="{{ structures.photo.url }}" class="img d-flex align-items-center h-99" alt="{{ structures.photo.url }}">                  
+                </div>
+                <div class="col-md-1">         
+                     <h5 class="d-flex justify-content-center align-items-center h-100 ville"><span id="color"> {{ structures.nom }}</span></h5>
+                </div>
+                <div class="col-md-2">     
+                    <p class="d-flex justify-content-center align-items-center h-100 descrip">{{  structures.adresse }}</p>
+                </div>
+                <div class="col-3 col-md-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ structures.part }}</p>
+                </div>
+                <div class="col-3 col-md-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ structures.user }}</p>
+                </div>
+                <div class="col-4 col-md-2">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ structures.numberPhone|phoneNumber }}</p>
+                </div>
+                <div class="col-2 col-md-1"> 
+                    <form method="POST">    
+                        {% csrf_token %}  
+                        {% if structures.actif %}
+                        <p hx-swap="outerHTML" hx-target="#dash" hx-post="{% url 'valide_actif_structure' pk=structures.id %}" class="d-flex justify-content-center align-items-center h-100"><input checked type="checkbox" name="actif"></p>
+                        {% else %}
+                        <p hx-swap="outerHTML" hx-target="#dash" hx-post="{% url 'valide_actif_structure' pk=structures.id %}" class="d-flex justify-content-center align-items-center h-100"><input type="checkbox" name="actif"></p>
+                        {% endif %} 
+                    </form>
+                </div>
+                    <div class="col-md-1" id="table">     
+                        <p class="d-flex justify-content-center align-items-center h-100">{{ structures.membre }}</p>
+                    </div>              
+                <div class="col-2 col-md-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-push-url="true" hx-get="{% url 'modif-structure' structures.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                </div>
+                <div class="col-3 col-md-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a  hx-target="#dash" hx-delete="{% url 'delete-structure' structures.pk %}" class="btn btnr danger">Effacer</a></p>
+                </div>
+            </div>
+                {% endfor %}        
+            <div class="bas">
+                <p> <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'rajoutstructure' %}" class="btn btnr btn-dark">Ajoutez une Structure</a><a class="btn btnr btn-dark" hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard_structure' %}"><i class="fas fa-undo"></i></a></p>
+                <nav id="boucle">
+                    <ul class="pagination justify-content-center">        
+                        {% if structures.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_structure' %}?page={{ structures.previous_page_number }}">
+                                   <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if structures.paginator.num_pages > 1 %}
+                        <li class='page-item'><p class="page-link" >Page {{ structures.number }} sur {{ structures.paginator.num_pages }}</p></li>
+                        {% endif %}
+                        {% if structures.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_structure' %}?page={{ structures.next_page_number }}">
+                               <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div> 
+</div>
+
+{% endblock content %}
+{% block javascript %}{% endblock javascript %}

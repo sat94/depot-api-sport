@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'login.css' %}"> 
+{% endblock head %}
+
+{% block title %}login{% endblock title %}
+
+{% block content %}
+<div class="bloc">
+    <h4>Connexion</h4>    
+    <form method ="POST">
+       {% csrf_token %}
+       <div class="text">
+        <label>Nom d'utilisateur :</label>
+        <p>{{ form.username}}</p>
+        <label>Mot de passe :</label>
+        <p>{{ form.password}}</p>
+        </div>
+    <button hx-target="#page" hx-post="{% url 'login' %}" class="btn btnr" type="submit">Se connecter</button>
+    <p class="petit">Si vous avez oubliez votre mots de passe<a hx-target="#page" hx-push-url="true" hx-get="{% url 'reset_password' %}"><span> cliquez ici </span></a></p>
+    </form>    
+</div>       
+{% endblock %}
+{% block javascript %}{% endblock javascript %}

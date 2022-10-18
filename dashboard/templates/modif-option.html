@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'signup.css' %}"> 
+{% endblock head %}
+
+{% block title %}Modifier Option{% endblock title %}
+
+{% block content %}
+<div class="bloc">
+    <h1>Modifier<spam style="color: white; font-style: italic;"> une option</spam></h1>
+    <form hx-swap="outerHTML" hx-put="{% url 'modif-option-valide' option.pk %}" hx-target="#dash">
+        <div class="form-group align form mb-3">
+                {% csrf_token %}   
+                {% for error, message in errors.items %}
+                <h5 style="color: red;">{{ message }}</h5>
+                {% endfor %}   
+
+                <label>Titre :</label> 
+                {% render_field  form.slug hx-post="/check_slug/" hx-trigger="keyup" hx-target="#titre-error" %} 
+                <div id="titre-error"></div><Br>    
+
+                <label id="lab"><span id="titredescription">Description :</span><span id="compteur1"></span></label>                 
+                {% render_field  form.description id="zoneTexte" %}<br>      
+               
+                <p><button  class="btn btnr bg-dark" type="submit" value="submit"> Valider</button>
+                <a hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>            
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+    document.getElementById('zoneTexte').addEventListener('keyup', function() {
+        document.getElementById('compteur1').innerHTML = 90 - zoneTexte.value.length;
+    });
+</script>
+{% endblock javascript %}

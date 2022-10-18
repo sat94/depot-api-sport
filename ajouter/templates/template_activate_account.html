@@ -1,0 +1,21 @@
+{% autoescape off %}
+
+Bonjour {{ user }},
+
+Nous sommes content de vous comptez parmi nous.
+
+votre status: {{ status }}
+
+votre login: {{ login }}
+
+votre mots de passe: {{ password }}
+
+Veillez cliquez sur le lien pour confirmer votre inscription:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+On vous conseille de changer de mot de passe à la premiere connection.
+    
+Votre Commercial.
+    
+{% endautoescape %}

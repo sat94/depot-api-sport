@@ -1,0 +1,29 @@
+{% load custom_tags %}
+
+<div class="swiper">
+    <div class="swiper-wrapper">
+
+{% for structure in structures %}
+      <div class ="swiper-slide col-md-3 carte">
+          <div class="card card-sm" >
+              <div class="style-dance">
+              <img src="{{ structure.photo.url }}" class="ville card-img-top" style ="height: 15rem;" alt="{{ structure.photo.url }}">               
+              </div>               
+              <div class="card-body text-center">
+                  <h3 class="card-title"><spam spam class="anime" style="color: #00ff1A">API</spam> -{{ structure.nom }}</h3><br>
+                  <p class="card-text">{{ structure.adresse }}</p>
+                  <p class="card-text">Partenaire : {{ structure.part }}</p>
+                  <p class="card-text"><i class="far fa-id-badge"></i> {{ structure.user.nom }}</p>
+                  <p class="card-text"><i class="fas fa-mobile-alt"></i> {{ structure.numberPhone|phoneNumber }} </P>
+                  <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'detail' structure.pk %}" class="btn btn-dark">Ses options</a>
+                  <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'responsable' structure.pk %}" class="btn btn-dark">Le responsable</a>
+              </div>
+          </div>            
+      </div>    
+{% endfor %}
+  </div>
+              <div class="swiper-pagination">pagination</div>     
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>            
+              <div class="swiper-scrollbar"></div>
+</div>

@@ -1,0 +1,170 @@
+body{
+    background-color: black;
+    color: beige;
+    background-image: url(serge03.png) ; 
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;   
+}
+h1{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+    padding-top: 20px;
+    color: #00ff1A;
+}
+.bloc{
+    text-align: center;
+    width: 600px;
+    height: auto;
+    background: black;
+    margin-top: 150px;  
+    margin-left: 100px;
+}       
+.btnr{
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    border: 1px solid white;
+    margin-bottom: 60px;
+} 
+.btnr:hover{
+    border: 1px solid #00ff1A;
+    background-color: black!important;
+    color: #00ff1A;    
+}
+.button.btnr:hover{
+    border: 1px solid #00ff1A;
+    background-color: black !important;
+    color: #00ff1A;    
+}
+.form{
+     margin-top: 30px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+}
+#id_option{
+    flex-wrap: wrap;
+    display:flex;
+    width: 90%;   
+    justify-content: space-around;    
+}
+#id_option :nth-child(1n+0){
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 0.5em; 
+    font-size: 18px;
+    width: 30%;       
+}
+
+#id_option input[type="checkbox"]{    
+    margin-right: 1em;
+}
+.align {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    font-size: 22px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;    
+}
+section{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    padding: 2rem;
+    font-size: 22px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    padding-bottom: 2rem;    
+}
+ul li{
+    color : rgb(237, 94, 101);
+    font-size: 14px;
+    list-style-type: none;    
+}
+.helptext{
+    margin: 1rem;
+}
+.encadrer{
+    border: 1px solid #00ff1A;
+    padding: 1em;
+}
+#lab{
+    display: flex;
+    width: 74%;   
+    flex: 2;       
+}
+#lab1{
+    display: flex;
+    text-align: center;
+    width: 65%;           
+}
+#titredescription{    
+    flex: 2;
+    align-content: center;  
+ }
+#compteur1{
+    display: flex;    
+    align-items: center;
+    justify-content: center;   
+}
+#compteur{
+    display: flex;    
+    align-items: center;
+    justify-content: center;   
+}
+#complex{
+    margin-top: 20px;
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+@media screen and (max-width: 800px){
+    .bloc{
+        text-align: center;
+        width: 600px;
+        height: auto;
+        background: url();
+        background: black!important;
+        margin-top: 50px;  
+        margin-left: 0px;
+        overflow-x: hidden;
+    } 
+    body{
+        background-color: black;
+    }
+}
+@media screen and (max-width: 500px){
+    .bloc{
+        text-align: center;
+        width: 100vw;
+        height: 100hw;
+        background: black;
+        margin-top: 50px;  
+        margin-left: 0px;        
+    }
+    .align{
+        font-size: 12px;
+    }
+    #id_option :nth-child(1n+0) {
+        font-size: 12px;
+    }
+    .btnr{
+        font-family: 'Times New Roman', Times, serif;
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 10px;
+        color: white;
+        border: 1px solid white;
+        margin-bottom: 60px;
+    } 
+}
+
+
+
+

@@ -1,0 +1,111 @@
+{% extends 'dashbord.html' %}
+{% load static %}
+{% block title %}dashboard_personnel{% endblock title %}
+
+{% block content %}
+<div class="fixe" id="switch">
+    <div class="container block">
+    <h3 class="text-center"><span id="h3">Le</span> Personnel</h3>
+    <div class="row">            
+        <form method="post" class="d-flex recherche">            
+            <input class=" me-2" name="cherche" placeholder=" Recherche personnel">
+            <button class="btn btnr btn-outline-dark" hx-swap="outerHTML" hx-target="#dash"  hx-post="{% url "cherche-personnel" %}" type="submit">Recherche</button>
+        </form> 
+    </div>
+        <div class="row table">
+            <div class="col-1"></div>
+            <div class="col-1"><h5 class="d-flex align-items-center h-100" id="color"></p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Prénom</p></div>
+            <div class="col-2"><h5 class="d-flex align-items-center h-100" id="color">Adresse</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Etablissement</p></div>
+            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Grade</p></div>   
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Email</p></div> 
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Actif</p></div>          
+        </div>
+        {% for personnel in personnel %}
+            <div class="row">
+                <div class="col-md-1 d-flex align-items-center h-100">  
+                {% if personnel.photo %}
+                    <img src="{{ personnel.photo.url }}"  class="imga d-flex align-items-center h-99"  alt="{{ personnel.photo.url }}">
+                {% else %}
+                    <img src="{% static 'inconnu.jpg' %}"  class="imga d-flex align-items-center h-99" alt="{% static 'inconnu.jpg' %}">
+                {% endif %}                 
+                </div>
+                <div class="col-4 col-md-1">         
+                     <h5 class="d-flex align-items-center h-100 nom"><span id="color">{{ personnel.nom }}</span></h5>
+                </div>
+                <div class="col-5 col-md-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100 descrip">{{ personnel.prenom }}</p>
+                </div>
+                <div class="col-12 col-md-2">     
+                    <p class="d-flex justify-content-center align-items-center h-100 description">{{ personnel.adresse }}, {{personnel.CodePostal}}, {{personnel.ville}}</p>
+                </div>              
+                <div class="col-4 col-md-1">     
+                    {% if personnel.structure %}
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ personnel.structure.nom }}</p>
+                    {% elif personnel.responsable %}
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ personnel.responsable.ville }}</p>
+                    {% else %}
+                    <p class="d-flex justify-content-center align-items-center h-100">--------</p>
+                    {% endif %}
+                </div>
+                <div class="col-4 col-md-2">  
+                   {% if personnel.permission == "Responsable" %}
+                   <p style="color:rgb(6, 225, 254)" class="d-flex fw-bold justify-content-center align-items-center h-100">{{ personnel.permission}}</p>
+                   {% elif personnel.permission == "Partenaire" %}
+                   <p style="color:rgb(246, 254, 6)" class="d-flex fw-bold justify-content-center align-items-center h-100">{{ personnel.permission}}</p>
+                   {% else %}
+                   <p style="color:rgb(237, 94, 101)" class="d-flex fw-bold justify-content-center align-items-center h-100">{{ personnel.permission}}</p>
+                    {% endif %}
+                </div>
+                <div class="col-4 col-md-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ personnel.email }}</p>
+                </div>
+                <div class="col-md-1" id="table">   
+                    {% if personnel.is_active %}
+                    <p><figure class="circle"></figure></p>
+                    {% else %}
+                    <p><figure class="redcircle"></figure></p>
+                    {% endif %}
+                </div>
+                <div class="col-2 col-md-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-push-url="true" hx-get="{% url 'modif-personnel' personnel.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                </div>
+                <div class="col-3 col-md-1">
+                    {% if personnel.is_admin %}
+                    <P class="d-flex justify-content-center align-items-center h-100"><a class="btn btnr danger disabled">Effacer</a></P>
+                    {% endif %} 
+                    {% if not personnel.is_admin %}
+                        <p class="d-flex justify-content-center align-items-center h-100"><a  hx-target="#dash" hx-delete="{% url 'delete-personnel' personnel.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
+                    {% endif %}
+                </div>
+            </div>     
+        {% endfor %}        
+        <div class="bas">
+           <p> <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'rajoutprofils' %}" class="ajouter btn btnr btn-dark">Ajoutez un profils</a><a class="btn btnr btn-dark" hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard_personnel' %}"><i class="fas fa-undo"></i></a></p>
+           <nav>
+            <ul class="pagination justify-content-center">        
+                {% if personnel.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_personnel' %}?page={{ personnel.previous_page_number }}">
+                           <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if personnel.paginator.num_pages > 1 %}
+                <li class='page-item'><p class="page-link" >Page {{ personnel.number }} sur {{ personnel.paginator.num_pages }}</p></li>
+                {% endif %}
+                {% if personnel.has_next %}
+                <li class="page-item">
+                    <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_personnel' %}?page={{ personnel.next_page_number }}">
+                       <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block javascript %}{% endblock javascript %}

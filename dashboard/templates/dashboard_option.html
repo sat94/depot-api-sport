@@ -1,0 +1,61 @@
+{% extends 'dashbord.html' %}
+{% load static %}
+
+{% block title %}dashboard_option{% endblock title %}
+
+
+{% block content %}
+<div class="fixe" id="switch">
+    <div class="container block">
+    <h3 class="text-center"><span id="h3">Les</span> Options</h3>
+    <div class="row">            
+        <form method="post" class="d-flex recherche">            
+            <input class=" me-2" name="cherche" placeholder=" Recherche option">
+            <button class="btn btnr btn-outline-dark" hx-swap="outerHTML" hx-target="#dash"  hx-post="{% url "cherche-option" %}" type="submit">Recherche</button>
+        </form> 
+    </div>
+        {% for options in option %}
+            <div class="row" >
+                <div class="col-md-2 col-12">         
+                    <h5><span id="color"> {{options.slug}} :</span></h5>
+                </div>
+                <div class="col-md-8 col-12">     
+                    <p><span id="text">{{options.description}}</span></P>
+                </div>
+                <div class="col-md-1 col-3">
+                    <p><a hx-target="#dash" hx-push-url="true" hx-get="{% url 'modif-option' options.pk %}" class="btn btnr btn-dark">Modifier</a></p>
+                </div>
+                <div class="col-md-1 col-3">
+                    <a hx-target="#dash" hx-delete="{% url 'delete-option' options.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?"class="btn btnr danger">Effacer</a>
+                </div>
+            </div>     
+        {% endfor %}
+        <div class="bas">
+           <p> <a hx-target="#dash" push-hx-url="True" hx-get="{% url 'rajoutoption' %}" class="ajouter btn btnr btn-dark">Ajoutez une option</a><a class="btn btnr btn-dark" hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard_option' %}"><i class="fas fa-undo"></i></a></p>
+           <nav id="boucle">
+            <ul class="pagination justify-content-center">        
+                {% if option.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_option' %}?page={{ option.previous_page_number }}">
+                           <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if option.paginator.num_pages > 1 %}
+                <li class='page-item'><p class="page-link" >Page {{ option.number }} sur {{ option.paginator.num_pages }}</p></li>
+                {% endif %}
+                {% if option.has_next %}
+                <li class="page-item">
+                    <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_option' %}?page={{ option.next_page_number }}">
+                       <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+ 
+    </div>
+    </div>
+
+{% endblock content %}
+{% block javascript %}{% endblock javascript %}

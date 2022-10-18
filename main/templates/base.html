@@ -1,0 +1,108 @@
+{% load static%}
+{% url 'index' as index %}
+{% url 'partenaire' as partenaire %}
+{% url 'profils' as profils %}
+{% url 'login' as connection %}
+{% url 'rajoutpartenaire' as ajouter %}
+{% url 'rajoutprofils' as jouter %}
+{% url 'rajoutstructure' as outer %}
+{% url 'rajoutoption' as rajouter %}
+{% url 'structure' as artenaire %}
+{% url 'détail' as tenaire %}
+{% url 'responsable' as naire %}
+<!DOCTYPE html>
+
+
+<html lang=fr>
+    <head>         
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=google">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>   
+        <link rel="shortcut icon" href="{% static 'favicon.jpg' %}" type="image/x-icon" />    
+        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>       
+        <link rel="stylesheet" href="{% static 'style.css' %}">        
+        <title>Api Sport - {% block title%}{% endblock %} </title>
+        <div id="dash">
+        <div id="page">
+        {% block head %} {% endblock head %}
+    </head>
+    <body>
+{% block nav %}
+<div class="row">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+    <a class="navbar-brand" contenteditable spellcheck="false" hx-push-url="true" hx-target="#page" hx-get="{% url 'index' %}"><span class="anime">API</span><span style="color: white" class="ml3">-SPORT</spam></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">         
+            <ul class="navbar-nav text-center ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link {% if request.path == index %} active {% endif %} me-lg-5" hx-target="#page"  hx-push-url="true" hx-get="{% url 'index' %}">Accueil</a></li>                 
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link {% if request.path == partenaire %} active {% endif %}{% if request.path == aire %} active {% endif %}{% if request.path == tenaire %} active {% endif %} me-0 me-lg-5" hx-target="#page" hx-push-url="true" hx-get="{% url 'partenaire' %}">Partenaire</a></li>                                                                                  
+                <li class="nav-item dropdown me-0 me-lg-5">
+                    <a class="nav-link dropdown-toggle {% if request.path == profils %} active {% endif %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.nom }}</a>                        
+                    <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
+                        {% if user.is_authenticated and user.permission == "Responsable" %} 
+                        <li><a class="dropdown-item" hx-target="#page" hx-push-url="true" hx-get="{% url 'maStructure' %}">Ma structure</a></li>
+                        {% elif user.is_authenticated and user.permission == "Partenaire" %}  
+                        <li><a class="dropdown-item" hx-target="#page" hx-push-url="true" hx-get="{% url 'monPartenaire' %}">Partenaire</a></li>
+                        {% else %}    
+                        <li><a class="dropdown-item" hx-push-url="true" hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard' %}">Dashboard</a></li> 
+                        {% endif %}  
+                        <li><a class="dropdown-item" hx-target="#page" hx-push-url="true" hx-get="{% url 'profils' %}">Profils</a></li>                                            
+                        <li><a class="dropdown-item" hx-target="#page" hx-get="{% url 'logout' %}">Déconnection</a></li>
+                    </ul>                                                      
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link me-0 me-lg-5 {% if request.path == connection %} active {% endif %}" hx-target="#page"  hx-push-url="true" hx-get="{% url 'login' %}">connexion</a></li>
+                    {% endif %} 
+                    
+                    {% if user.is_authenticated %} 
+                    {% if user.photo %}
+                    <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4 poto" alt="logo_api"></a></li> 
+                    {% else %} 
+                    <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{% static 'inconnu.jpg' %}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li> 
+                    {% endif %} 
+            {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>      
+</div> 
+{% endblock nav %}
+
+{% block content %}{% endblock content %}
+
+{% for message in messages %}
+  {% if message.tags == 'success' %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.1/dist/sweetalert2.all.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        Swal.fire({
+            icon: 'success',
+            title: m,
+            color: "white",
+            background: "black",
+          })
+    </script>
+  {% endif %}
+{% endfor %}
+</div>
+</div>
+<script>    
+    document.body.addEventListener('htmx:configRequest', (event)=> {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script> 
+<script src={% static 'app.js' %}></script>
+{% block javascript %}{% endblock javascript %}
+</body>
+
+
+
+
+

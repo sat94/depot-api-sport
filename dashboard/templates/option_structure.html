@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dash.css' %}">
+{% endblock head %}
+
+{% block title %}Change_Option Structure{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="top"> 
+        <div class="col-12"> 
+            <h2 class><span id="color">Les</span> Options<span id="color"> du</span> part<span id="color">enaires</span></h2><br>       
+            {% for option in options %}               
+                {% if option.id in listoptionpartenaire %} 
+                <div class="row">
+                    <div class="col-2">    
+                        <p><img src={% static 'vert.png' %} style="width:20px;margin-left:1rem;"></P>
+                    </div>   
+                    <div class="col-2">         
+                        <p>{{ option.slug }}</p> 
+                    </div>  
+                </div>   
+                {% endif %}
+            {% endfor %} 
+                <div class ="row">
+                    <h2 class="mt-5 mb-4"><span id="color">Les</span> <span id="color">Opt</span>ions <span id="color">struc</span>tures</h2>
+                    <form method ="POST">
+                        {% csrf_token %}  
+                        <p>{{ form }}</p>
+                        <button class="btn btn-dark btn-lg" hx-target="#page" hx-push-url="true" hx-post="{% url 'user_option_structure' user.structure.pk %}" type="submit">Accepter les modifications</button>
+                    </form>
+                </div>
+            </div> 
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

@@ -1,0 +1,30 @@
+{% load custom_tags %}
+
+<div class="swiper">  
+    <div class="swiper-wrapper"> 
+     {% for partenaire in partenaires %}
+        <div class="swiper-slide col-md-3 carte">
+            <div class="card">
+                <div class="style-dance">
+                    <img src="{{ partenaire.photo.url }}" class="ville card-img-top" style ="height: 15rem;" alt="{{ partenaire.photo.url }}">
+                </div>
+                <div class="card-body text-center">
+                    <h3 class="card-title"><spam class="anime" style="color: #00ff1A">API</spam>-{{ partenaire.ville }}</h3><br>
+                    <p class="card-text">{{ partenaire.description }}</p>
+                    <p class="card-text"><i class="far fa-id-badge me-2"></i>{{ partenaire.resp.nom }}</p>
+                    <p class="card-text"><i class="fas fa-mobile-alt me-2"></i>{{ partenaire.numberPhone|phoneNumber }} </p>
+                    <button class="btn btn-dark" hx-target="#page"  hx-push-url="true" hx-get="{% url 'optionbase' pk=partenaire.id %}">Ses options</button>  
+                    <button class="btn btn-dark" hx-target="#page"  hx-push-url="true" hx-get="{% url 'structure' slug=partenaire.slug %}">Ses structures</button>
+                </div>
+            </div>
+            
+    </div>
+        {% endfor %}
+</div>
+    <div class="swiper-pagination"></div>      
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar"></div>
+</div>

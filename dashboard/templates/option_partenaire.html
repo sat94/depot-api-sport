@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dash.css' %}">
+{% endblock head %}
+
+{% block title %}Change_Option Partenaire{% endblock title %}
+
+{% block content %}
+<div class="container md-6">
+    <div class="top"> 
+        <div class ="row">
+            <h2>Les Options du Partenaire:</h2>
+            <form method ="POST">
+                {% csrf_token %}  
+                <p>{{ form }}</p>
+                <button class="btn btn-dark btn-lg" hx-target="#page" hx-push-url="true" hx-post="{% url 'user_option_partenaire' user.responsable.pk %}" type="submit">Accepter les modifications</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'prof.css' %}"> 
+{% endblock head %}
+
+{% block title %}modifier profils{% endblock title %}
+
+{% block content %}
+<div class="bloc">
+    <h1><span class="suffit">Modifier</span><span style="color: white; font-style: italic;"> un compte</span></h1>
+    <form method ="POST" hx-encoding="multipart/form-data">
+        <div class="form-group align form mb-3">
+                {% csrf_token %}   
+                {% for error, message in errors.items %}
+                <h5 style="color: red;">{{ message }}</h5>                
+                {% endfor %} 
+                                  
+                <label >Nom d'utilisateur :</label>
+                {% render_field form.username placeholder="Pseudo" hx-post="/check_username/" hx-trigger="keyup" hx-target="#username-error" %}
+                <div id="username-error"></div>
+                <Br>          
+                    
+                <label>Votre nom:</label>
+                {% render_field form.nom placeholder="Votre nom" %}<Br>
+
+                <label>Votre prénom:</label>
+                {% render_field form.prenom placeholder="Votre prénom" %}<Br>
+
+                <label>Votre adresse:</label>             
+                {% render_field form.adresse placeholder="Votre adresse" %}<Br>
+
+                <label>Code postal:</label>
+                {% render_field form.CodePostal placeholder="Code postal" %}<Br>
+
+                <label>Ville :</label> 
+                {% render_field form.ville placeholder="Votre ville" %}<Br>
+
+                <label>Photo :</label>    
+                {% render_field form.photo %}<Br>                
+                            
+                <p><button value="submit" hx-target="#page" hx-push-url="true" hx-post="{% url 'modifprofils' %}" class="btn btnr bg-dark me-2" id="button" type="submit">Valider</button>
+                <button hx-target="#page"  hx-push-url="true" hx-get="{% url 'profils' %}" class="btn btnr bg-dark" id="button" type="submit">Retour</button> </p>              
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

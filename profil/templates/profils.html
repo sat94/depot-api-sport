@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'prof.css' %}"> 
+{% endblock head %}
+
+{% block title %}profils{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="top"> 
+        <div class ="row">
+            <div class="col-8 col-lg-6">         
+            <p><span class="suffit"> Nom : </span>{{user.nom}}</P>
+            <p><span class="suffit"> Prénom: </span>{{user.prenom}} </P>
+            <p><span class="suffit"> Email : </span>{{user.email}}</p>
+            <p><span class="suffit"> Adresse: </span>{{user.adresse}}</P>
+            <p><span class="suffit"> Ville: </span>{{user.ville}}</P>
+            <p><span class="suffit"> Code Postal: </span>{{user.CodePostal}}</P>  
+            <p><span class="suffit"> Permission: </span>{{user.permission}}</P><br>
+            </div>                   
+            <div class="col-4 col-lg-6">         
+                
+                {% if user.is_authenticated and user.photo.url %} 
+                <p class="d-flex justify-content-center align-items-center h-75"><img src={{ user.photo.url }} class="rounded-3 img-fluid float"  alt={{ user.photo.url }}></p>
+                {% else %}
+                <p class="d-flex justify-content-center align-items-center h-75"><img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg"></p>
+                {% endif %}
+                
+            </div>
+        </div>
+        <button hx-target="#page" hx-push-url="true" hx-get="{% url 'modifprofils' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le profils</button>
+        <button hx-target="#page" hx-push-url="true" hx-get="{% url 'password' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le password</button>
+    
+        </div> 
+    </div>
+
+</div>
+{% endblock %}
+
+{% block javascript %}{% endblock javascript %}
