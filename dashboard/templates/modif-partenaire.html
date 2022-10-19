@@ -40,7 +40,7 @@
                 {% render_field form.option %}<Br>          
                
                 <p><button  hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-post="{% url 'modif-partenaire-valide' partenaires.pk %}" class="btn btnr bg-dark" type="submit" value="submit" >Valider</button> 
-                <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>           
+                <a hx-select-oob="#dash" hx-push-url="true" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>           
         </div>
     </form>
 </div>

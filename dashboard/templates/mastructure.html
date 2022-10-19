@@ -45,8 +45,8 @@
                     <img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>
                     {% endif %}
                     <p><span class="suffit"> Numeros :</span>{{user.structure.numberPhone|phoneNumber}}</P>   
-                    <p><button hx-target="#page" hx-push-url="true" hx-get="{% url 'modifstructure' pk=user.structure.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier</button>
-                    <button hx-target="#page" hx-push-url="true" hx-get="{% url 'user_option_structure' user.structure.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Option</button></p> 
+                    <p><button hx-select-oob="#page" hx-push-url="true" hx-get="{% url 'modifstructure' pk=user.structure.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier</button>
+                    <button hx-select-oob="#page" hx-push-url="true" hx-get="{% url 'user_option_structure' user.structure.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Option</button></p> 
             </div>          
             <div class="col-4">
                 {{ user.structure.option.slug.Bar }}

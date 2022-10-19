@@ -48,10 +48,10 @@
                 </form>
                 </div>
                 <div class="col-2 col-md-1">
-                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-get="{% url 'modif-partenaire' partenaires.pk %}"  hx-push-url="true" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-get="{% url 'modif-partenaire' partenaires.pk %}"  hx-push-url="true" hx-select-oob="#dash" class="btn btnr btn-dark">Modifier</a></p>
                 </div>
                 <div class="col-3 col-md-1">
-                    <p class="d-flex justify-content-center align-items-center h-100"><a  hx-target="#dash" hx-delete="{% url 'delete-partenaire' partenaires.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-target="#dash" hx-delete="{% url 'delete-partenaire' partenaires.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
                 </div>
             </div>     
         {% endfor %}        
@@ -61,7 +61,7 @@
             <ul class="pagination justify-content-center">        
                 {% if partenaires.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_partenaire' %}?page={{ partenaires.previous_page_number }}">
+                        <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-select-oob="#switch" hx-get="{% url 'dashboard_partenaire' %}?page={{ partenaires.previous_page_number }}">
                            <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -71,7 +71,7 @@
                 {% endif %}
                 {% if partenaires.has_next %}
                 <li class="page-item">
-                    <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_partenaire' %}?page={{ partenaires.next_page_number }}">
+                    <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-select-oob="#switch" hx-get="{% url 'dashboard_partenaire' %}?page={{ partenaires.next_page_number }}">
                        <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

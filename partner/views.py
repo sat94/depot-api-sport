@@ -28,8 +28,8 @@ def Partenaire_option(request, pk):
     if request.method == "POST":
         form = Option_par_id(request.POST, instance=partenaires)           
         if form.is_valid():             
-            form.save()
             messages.success(request,"les options du partenaire ont été modifier!")
+            form.save()
             return redirect('optionbase', pk=partenaires.id)
             
     context= { "partenaires" : partenaires,
@@ -48,8 +48,8 @@ def option_partenaire_valide(request, pk):
     if request.method == "POST":
         form = Actif_par_id(request.POST, instance=partenaires)          
         if form.is_valid():          
-            form.save()
             messages.success(request,"le partenaire est modifier!")
+            form.save()
             return redirect('optionbase', pk=partenaires.id )
 
 @login_required

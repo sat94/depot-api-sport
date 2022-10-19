@@ -30,7 +30,7 @@
                     <form method ="POST">
                         {% csrf_token %}  
                         <p>{{ form }}</p>
-                        <button class="btn btn-dark btn-lg" hx-target="#page" hx-push-url="true" hx-post="{% url 'user_option_structure' user.structure.pk %}" type="submit">Accepter les modifications</button>
+                        <button class="btn btn-dark btn-lg" hx-select-oob="#page" hx-push-url="true" hx-post="{% url 'user_option_structure' user.structure.pk %}" type="submit">Accepter les modifications</button>
                     </form>
                 </div>
             </div> 

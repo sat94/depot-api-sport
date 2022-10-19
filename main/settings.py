@@ -12,14 +12,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'amontura39@gmail.com'
 EMAIL_HOST_PASSWORD = 'kdtxtxzergiilcyc'
 EMAIL_PORT = 587
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,9 +31,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5**v&e)of^-z+#x_ijqno1jhp53kpgdzl_v*f9wl%_vwk6-28='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["sat.pythonanywhere.com"]
+ALLOWED_HOSTS = ["satk.fr"]
 
 DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
 DJANGORESIZED_DEFAULT_KEEP_META = True
@@ -120,7 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

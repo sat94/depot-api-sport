@@ -26,7 +26,7 @@
                 {% render_field  form.description id="zoneTexte" %}<br>      
                
                 <p><button  class="btn btnr bg-dark" type="submit" value="submit"> Valider</button>
-                <a hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>            
+                <a hx-swap="outerHTML"  hx-push-url="true" hx-select-oob="#dash" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>            
         </div>
     </form>
 </div>

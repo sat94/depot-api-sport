@@ -23,8 +23,8 @@
                 {{user.email}}</p>
             <p><span class="suffit"> Téléphone :</span>   
                 {{user.responsable.numberPhone|phoneNumber}}</P>                                    
-                <button hx-target="#page" hx-push-url="true" hx-get="{% url 'modifpartenaire' user.responsable.pk %}" class="btn btn-dark btn-lg me-2" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier</buttom>
-                <button hx-target="#page" hx-push-url="true" hx-get="{% url 'user_option_partenaire' user.responsable.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Option</buttom>  
+                <button hx-select-oob="#page" hx-push-url="true" hx-get="{% url 'modifpartenaire' user.responsable.pk %}" class="btn btn-dark btn-lg me-2" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier</buttom>
+                <button hx-select-oob="#page" hx-push-url="true" hx-get="{% url 'user_option_partenaire' user.responsable.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Option</buttom>  
             </div>            
             <div class="col-4">                  
             <img src={{ user.responsable.photo.url }} class="rounded-3 img-fluid float" alt={{user.partenaire.photo}}>      

@@ -25,7 +25,8 @@
                     <p><span class="suffit"> Actif : </span><img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>
                 {% endif %}
             <br>
-            <button hx-swap="outerHTML"  hx-push-url="true" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</buttom>
+            <button hx-swap="outerHTML"  hx-push-url="true" hx-select-oob=
+            "#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</buttom>
             </div>         
             
             <div class="col-2 col-lg-6">                

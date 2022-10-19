@@ -27,13 +27,13 @@
                 {% if user.is_admin %}
                 <form method ="POST">
                     {% csrf_token %}  
-                    <p hx-swap="outerHTML" hx-target="#page" hx-post="{% url 'valide' pk=partenaires.id %}"><span class="suffit">Actif : </span> {{ forms }}</p>
+                    <p hx-swap="outerHTML" hx-select-oob="#page" hx-post="{% url 'valide' pk=partenaires.id %}"><span class="suffit">Actif : </span> {{ forms }}</p>
                 </form>
                 {% else %}
                 {% if partenaires.actif %}
-                <p class="col-6"><span class="suffit">Actif :</span><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                <p class="col-6"><span class="suffit">Actif :</span><img src={% static 'vert.png' %}  style="width:20px;margin-left:1rem;"></p>
                 {% else %}                                      
-                <p class="col-6"><span class="suffit">Actif :</span> <img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                <p class="col-6"><span class="suffit">Actif :</span> <img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>
                 {% endif %}
                 {% endif %} 
                 <div class="row">              
@@ -55,7 +55,7 @@
                 {% csrf_token %}
                 <h2><span class="suffit">Les Opt</span>ions <span class="suffit">Glo</span>bals</h2>
                 <p>{{ form }}</p><br>                
-                <button hx-swap="outerHTML" hx-target="#page" hx-post="{% url 'optionbase' pk=partenaires.id %}" class="btn btn-dark btn-lg" role="button" id="button" type="submit">Accepter les modifications</button>
+                <button hx-swap="outerHTML" hx-select-oob="#page" hx-post="{% url 'optionbase' pk=partenaires.id %}" class="btn btn-dark btn-lg" role="button" id="button" type="submit">Accepter les modifications</button>
                 <button hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" aria-disabled="true" id="button"><img src="{% static "retour.png" %}" style="height:1rem"></button>    
             </form>
             </div>
@@ -63,9 +63,9 @@
             <div class="col-6 col-md-2 order-xl-3 suffit">
                 {% for option in options %}
                     {% if option.id in listoptionid %}
-                        <p> {{ option.slug }} <img src={% static 'vert.png' %} style="width:10%;margin-left:1rem;"></p>
+                        <p> {{ option.slug }} <img src={% static 'vert.png' %} style="width:20px;margin-left:1rem;"></p>
                     {% else %}  
-                        <p> {{ option.slug }} <img src={% static 'false.png' %} style="width:8%;margin-left:1rem;"></p>
+                        <p> {{ option.slug }} <img src={% static 'false.png' %} style="width:20px;margin-left:1rem;"></p>
                     {% endif %}
                 {% endfor %}
             {% endif %}

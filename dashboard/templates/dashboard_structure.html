@@ -69,7 +69,7 @@
                     <ul class="pagination justify-content-center">        
                         {% if structures.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_structure' %}?page={{ structures.previous_page_number }}">
+                                <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-select-oob="#switch" hx-get="{% url 'dashboard_structure' %}?page={{ structures.previous_page_number }}">
                                    <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -79,7 +79,7 @@
                         {% endif %}
                         {% if structures.has_next %}
                         <li class="page-item">
-                            <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_structure' %}?page={{ structures.next_page_number }}">
+                            <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-select-oob="#switch" hx-get="{% url 'dashboard_structure' %}?page={{ structures.next_page_number }}">
                                <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

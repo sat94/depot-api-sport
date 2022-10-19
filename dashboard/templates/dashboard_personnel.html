@@ -69,7 +69,7 @@
                     {% endif %}
                 </div>
                 <div class="col-2 col-md-1">
-                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-push-url="true" hx-get="{% url 'modif-personnel' personnel.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-push-url="true" hx-get="{% url 'modif-personnel' personnel.pk %}" hx-select-oob="#dash" class="btn btnr btn-dark">Modifier</a></p>
                 </div>
                 <div class="col-3 col-md-1">
                     {% if personnel.is_admin %}
@@ -87,7 +87,7 @@
             <ul class="pagination justify-content-center">        
                 {% if personnel.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_personnel' %}?page={{ personnel.previous_page_number }}">
+                        <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-select-oob="#switch" hx-get="{% url 'dashboard_personnel' %}?page={{ personnel.previous_page_number }}">
                            <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -97,7 +97,7 @@
                 {% endif %}
                 {% if personnel.has_next %}
                 <li class="page-item">
-                    <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#switch" hx-get="{% url 'dashboard_personnel' %}?page={{ personnel.next_page_number }}">
+                    <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-select-oob="#switch" hx-get="{% url 'dashboard_personnel' %}?page={{ personnel.next_page_number }}">
                        <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
