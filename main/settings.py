@@ -12,11 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'amontura39@gmail.com'
-EMAIL_HOST_PASSWORD = 'kdtxtxzergiilcyc'
-EMAIL_PORT = 587
+
 
 
 
